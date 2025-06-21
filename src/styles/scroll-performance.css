@@ -1,0 +1,205 @@
+/* Scroll Performance Optimizations */
+
+/* Enable hardware acceleration and smooth scrolling */
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  /* Prevent unnecessary paint operations */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Optimize scroll performance for all motion elements */
+.motion-section {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  /* Reduce composite layers */
+  contain: layout style paint;
+}
+
+/* Optimize heavy animations during scroll */
+.motion-section * {
+  /* Prevent unnecessary repaints */
+  will-change: auto;
+}
+
+/* Smooth scroll padding for anchor links */
+:root {
+  scroll-padding-top: 80px;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .motion-section {
+    will-change: auto !important;
+    transform: none !important;
+  }
+}
+
+/* Optimize scroll for mobile devices */
+@media (max-width: 768px) {
+  .motion-section {
+    /* Reduce complexity on mobile */
+    transform: none;
+    will-change: auto;
+  }
+
+  /* Reduce animation complexity on mobile */
+  .motion-section [data-framer-motion] {
+    animation-duration: 0.3s !important;
+    transition-duration: 0.3s !important;
+  }
+}
+
+/* Prevent layout shift during animations */
+.motion-section img,
+.motion-section video {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Optimize scroll indicators and navigation */
+.scroll-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--cyber-blue) 0%,
+    var(--terminal-500) 100%
+  );
+  transform-origin: 0%;
+  transform: scaleX(0);
+  z-index: 9999;
+  will-change: transform;
+}
+
+/* Smooth focus transitions */
+*:focus {
+  outline: 2px solid var(--cyber-blue);
+  outline-offset: 2px;
+  transition: outline-offset 0.2s ease;
+}
+
+/* Optimize heavy background elements */
+.cyber-background,
+.particle-system,
+.gradient-background {
+  will-change: auto;
+  /* Use GPU compositing sparingly */
+  transform: translateZ(0);
+  /* Optimize paint operations */
+  contain: layout style paint;
+}
+
+/* Optimize terminal and code elements */
+.terminal-container,
+.code-snippet {
+  /* Optimize text rendering */
+  text-rendering: optimizeSpeed;
+  /* Reduce composite layers */
+  contain: layout style;
+}
+
+/* Performance optimizations for large lists */
+.contribution-graph,
+.stats-dashboard {
+  /* Virtual scrolling optimization */
+  contain: layout style paint;
+  will-change: auto;
+}
+
+/* Optimize glass morphism effects during scroll */
+.glass-effect {
+  /* Reduce backdrop-filter during scroll if needed */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  /* Optimize compositing */
+  will-change: auto;
+  contain: layout style paint;
+}
+
+/* Scroll snap for better UX */
+.scroll-snap-container {
+  scroll-snap-type: y mandatory;
+}
+
+.scroll-snap-item {
+  scroll-snap-align: start;
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Optimize images for scroll performance */
+img {
+  /* Prevent unnecessary repaints */
+  will-change: auto;
+  /* Optimize image rendering */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: optimize-contrast;
+}
+
+/* Performance monitoring styles */
+.performance-monitor {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: monospace;
+  font-size: 12px;
+  z-index: 10000;
+  pointer-events: none;
+}
+
+/* Optimize animation performance */
+@keyframes optimizedFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes optimizedSlideUp {
+  from {
+    transform: translate3d(0, 20px, 0);
+    opacity: 0;
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+/* Use optimized animations */
+.fade-in-optimized {
+  animation: optimizedFadeIn 0.6s ease-out forwards;
+}
+
+.slide-up-optimized {
+  animation: optimizedSlideUp 0.6s ease-out forwards;
+}

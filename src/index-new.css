@@ -1,0 +1,196 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap");
+@import url("https://api.fontshare.com/v2/css?f[]=cal-sans@400,500,600,700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Developer Theme Variables */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #111111;
+  --bg-tertiary: #1a1a1a;
+  --bg-code: #0d1117;
+
+  --text-primary: #ffffff;
+  --text-secondary: #e5e5e5;
+  --text-muted: #888888;
+  --text-dim: #444444;
+
+  --terminal-green: #22c55e;
+  --cyber-blue: #00d4ff;
+  --cyber-purple: #8b5cf6;
+  --cyber-pink: #ec4899;
+
+  --shadow-glow: 0 0 20px rgba(34, 197, 94, 0.3);
+  --shadow-cyber: 0 0 30px rgba(0, 212, 255, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  overflow-x: hidden;
+  min-height: 100vh;
+
+  /* Enhanced scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--terminal-green) var(--bg-secondary);
+}
+
+/* Custom Scrollbar for Webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--terminal-green);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cyber-blue);
+}
+
+/* Developer-focused utility classes */
+@layer utilities {
+  .terminal-text {
+    font-family: "JetBrains Mono", monospace;
+    color: var(--terminal-green);
+  }
+
+  .cyber-text {
+    background: linear-gradient(45deg, var(--cyber-blue), var(--cyber-purple));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .glow-terminal {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .glow-cyber {
+    box-shadow: var(--shadow-cyber);
+  }
+
+  .bg-code {
+    background: var(--bg-code);
+  }
+
+  .bg-grid {
+    background-image: linear-gradient(
+        rgba(255, 255, 255, 0.05) 1px,
+        transparent 1px
+      ),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  .matrix-bg {
+    background: radial-gradient(
+        circle at 25% 25%,
+        rgba(34, 197, 94, 0.1) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 75% 75%,
+        rgba(0, 212, 255, 0.1) 0%,
+        transparent 50%
+      ),
+      var(--bg-primary);
+  }
+
+  .terminal-border {
+    border: 1px solid var(--terminal-green);
+    box-shadow: 0 0 10px rgba(34, 197, 94, 0.2);
+  }
+
+  .cyber-border {
+    border: 1px solid var(--cyber-blue);
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+  }
+}
+
+/* Enhanced component styles */
+@layer components {
+  .btn-terminal {
+    @apply bg-transparent border border-terminal-500 text-terminal-500 px-6 py-3 rounded-lg font-mono text-sm transition-all duration-300 hover:bg-terminal-500 hover:text-black hover:shadow-glow;
+  }
+
+  .btn-cyber {
+    @apply bg-gradient-to-r from-cyber-blue to-cyber-purple text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-cyber;
+  }
+
+  .card-terminal {
+    @apply bg-background-secondary border border-gray-800 rounded-lg p-6 backdrop-blur-sm transition-all duration-300 hover:border-terminal-500 hover:shadow-glow;
+  }
+
+  .input-terminal {
+    @apply bg-background-code border border-gray-700 rounded-lg px-4 py-3 text-foreground-primary font-mono focus:border-terminal-500 focus:ring-1 focus:ring-terminal-500 focus:outline-none transition-all duration-300;
+  }
+}
+
+/* Hide default focus outlines and replace with custom ones */
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--terminal-green);
+  outline-offset: 2px;
+}
+
+/* Selection colors */
+::selection {
+  background: var(--terminal-green);
+  color: var(--bg-primary);
+}
+
+::-moz-selection {
+  background: var(--terminal-green);
+  color: var(--bg-primary);
+}
+
+/* Loading spinner */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--bg-secondary);
+  border-top: 4px solid var(--terminal-green);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Responsive design helpers */
+@media (max-width: 640px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+/* Print styles */
+@media print {
+  * {
+    background: white !important;
+    color: black !important;
+  }
+}
